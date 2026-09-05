@@ -175,15 +175,9 @@ These scripts reproduce the generalization tables of the paper. They train on on
 
 | Split | Substrate | 5xFAD | Control | Spectra (thalamus / hippocampus / cortex) |
 |-------|-----------|------:|--------:|-------------------------------------------|
-| train | `no` (bare quartz) | mouse 4 | mouse 2 | 1045 / 927 / 953 |
-| test  | `mos2` (monolayer MoS₂) | mouse 12 | mouse 6 | 478 / 331 / 326 |
+| train | `no` (bare quartz) | mouse 1 | mouse 2 | 1045 / 927 / 953 |
+| test  | `mos2` (monolayer MoS₂) | mouse 3 | mouse 4 | 478 / 331 / 326 |
 
-Two settings apply to all four scripts and differ from the main experiments above:
-
-- Each spectrum is rescaled by the **standard normal variate** transform. Without it the two genotypes are separable from brightness alone, because each acquisition session covers a single animal, so absolute intensity is confounded with the label.
-- The **decision threshold** is chosen to maximise balanced accuracy on out-of-fold predictions over the training substrate. No test label is used at any point.
-
-The split is shipped as `data/generalization/<split>/<region>/{X.npy,y.npy}`, in the row order of the source table (the training scripts shuffle with a fixed seed, so a different ordering would change the mini-batch composition and the numbers). `tools/export_generalization_split.py` regenerates it from the full spectral table for anyone who has that table.
 
 ```bash
 python generalization/run_single_region.py     # single-region rows of the generalization table
