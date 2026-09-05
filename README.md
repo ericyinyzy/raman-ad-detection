@@ -171,7 +171,7 @@ horizontal `colorbar.png`.
 
 ## Generalization analysis — four scripts
 
-These scripts reproduce the generalization tables of the paper. They train on one 5xFAD mouse and one control mouse measured on bare quartz, and test on a **different** pair of mice measured on monolayer MoS₂, so the training and test sets share neither animals nor substrate. The four animals are renumbered 1 to 4 in the paper; the identifiers in the source table are:
+These scripts reproduce the generalization tables of the paper. They train on one 5xFAD mouse and one control mouse measured on bare quartz, and test on a **different** pair of mice measured on monolayer MoS₂, so the training and test sets share neither animals nor substrate. 
 
 | Split | Substrate | 5xFAD | Control | Spectra (thalamus / hippocampus / cortex) |
 |-------|-----------|------:|--------:|-------------------------------------------|
