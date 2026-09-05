@@ -245,7 +245,7 @@ vector_np = background.squeeze().cpu().numpy()
 
 # 画图
 import pandas as pd
-acs_ori = pd.read_csv("../AD_2023_processed.csv", encoding='latin-1')
+acs_ori = pd.read_csv("../wavenumbers.csv", encoding='latin-1')
 rows = [row for row in acs_ori]
 x_label = rows[9:710]  # 701个波长标签 (string)
 xticks_interval = 50
@@ -385,7 +385,7 @@ os.makedirs(os.path.join(sub_dir,'test'),exist_ok=True)
 
 # 分别计算每个特征点的平均绝对SHAP值
 import pandas as pd
-acs_ori = pd.read_csv("../AD_2023_processed.csv", encoding='latin-1')
+acs_ori = pd.read_csv("../wavenumbers.csv", encoding='latin-1')
 rows = [row for row in acs_ori]
 x_label = rows[9:710]  # 701个波长标签 (string)
 

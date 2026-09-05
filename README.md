@@ -9,7 +9,9 @@ The framework includes two models:
 - **Raman-Net** — a single-region classifier (3 linear layers + ReLU + Softmax) that operates on Raman spectra collected from one brain region (cortex, hippocampus, or thalamus). Interpretation is performed with SHAP values over the 701 wavenumber points.
 - **Raman-MRNet** — a multi-region classifier that takes Raman spectra from all three regions simultaneously and uses a region-wise soft-attention module to integrate them. Interpretation is performed by visualizing the attention weights as heatmaps.
 
-All experiments use the **MoSe₂** substrate dataset (5xFAD AD vs. healthy controls), which contains 2018 Raman spectra in total: 312 thalamus, 855 cortex, 851 hippocampus.
+The main experiments use the **MoSe₂** substrate dataset (5xFAD AD vs. healthy controls), which contains 2018 Raman spectra in total: 312 thalamus, 855 cortex, 851 hippocampus.
+
+The generalization analysis reported in the paper uses two further substrates, both included here: **`no`** (quartz slide carrying no monolayer) for training and **`mos2`** (monolayer MoS₂) for testing. That split shares neither animals nor substrates between training and testing.
 
 ---
 
@@ -23,7 +25,17 @@ Each `.npy` file is a single Raman spectrum baseline-corrected to the wavenumber
 | Cortex      | 144      | 540          | 36      | 135         | 855   |
 | Hippocampus | 140      | 540          | 36      | 135         | 851   |
 
-The wavenumber labels for the 701 points are stored as the column header of `AD_2023_processed.csv` (columns 9 through 709).
+Per-substrate spectrum counts:
+
+| Substrate | Single-region spectra | Multi-region samples |
+|-----------|----------------------:|---------------------:|
+| `mose2`   | 2018                  | 855                  |
+| `no`      | 5946                  | 2071                 |
+| `mos2`    | 1135                  | 478                  |
+
+`data/AD_processed_single/<substrate>/<split>/<class>/<region>/*.npy` holds one spectrum per file, shaped `(1, 701)`. `data/AD_processed_merge/<substrate>/<split>/<class>/combined_*.npy` holds one multi-region sample per file, shaped `(3, 701)`, stacked in the order **thalamus, cortex, hippocampus**. The merged files for `no` and `mos2` are produced from the single-region files by `tools/build_multi_region.py`.
+
+The wavenumber labels for the 701 points are stored as the column header of `wavenumbers.csv` (columns 9 through 709).
 
 ---
 
@@ -159,7 +171,7 @@ horizontal `colorbar.png`.
 
 ## Notes
 
-- The header-only `AD_2023_processed.csv` is included only to expose the 701 wavenumber labels used for plot axis ticks. The raw spectral table is not redistributed; access can be requested per the *Data availability* section of the paper.
+- `wavenumbers.csv` is a single header row, not a data file. It exists only to expose the 701 wavenumber labels used for plot axis ticks; the spectra themselves are the `.npy` files under `data/`, which are the actual model inputs for every number reported in the paper.
 - Both `single_region/mose2_*/test/` and `multi_region/heatmap_outputs/` start empty — they are populated by Script 2 / Script 3 respectively.
 
 ---

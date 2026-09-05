@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 # 1️⃣ 读取波长标签 (请替换 `csv_path` 为正确路径)
-csv_path = "../AD_2023_processed.csv"  # 确保路径正确
+csv_path = "../wavenumbers.csv"  # 确保路径正确
 acs_ori = pd.read_csv(csv_path, encoding='latin-1')
 rows = [row for row in acs_ori]
 x_label = rows[9:710]  # 701个波长标签 (string)
